@@ -1,0 +1,33 @@
+{
+  "name": "point.oh",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && tsc",
+    "serve": "vite preview",
+    "test": "web-test-runner \"**/*_test.ts\" --node-resolve"
+  },
+  "devDependencies": {
+    "@esm-bundle/chai": "^4.3.4",
+    "@types/node": "^15.6.1",
+    "@types/react": "^16.8.0",
+    "@web/dev-server-esbuild": "^0.2.12",
+    "@web/test-runner": "^0.13.5",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "typescript": "^4.2.3",
+    "vite": "^2.3.4"
+  },
+  "type": "module",
+  "exports": {
+    "import": "./build/point.oh.es.js",
+    "require": "./build/point.oh.umd.js"
+  },
+  "keywords": [
+    "input",
+    "mask",
+    "point.oh",
+    "format"
+  ],
+  "types": "./build/types/mod.d.ts"
+}

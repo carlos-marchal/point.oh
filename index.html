@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>point.oh playground</title>
+    <style>
+      input {
+        display: block;
+        margin: 10px 0;
+      }
+
+      div {
+        border: 1px solid grey;
+        width: max-content;
+        margin: 20px 10px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      Plain JavaScript
+      <input type="text" id="numeric" />
+      <input type="text" id="currency" />
+      <input type="text" id="percentage" />
+      <input type="text" id="master" />
+      <button id="sync">Sync</button>
+    </div>
+    <div id="react" />
+    <script type="module">
+      import { NumericPointOh, CurrencyPointOh, PercentagePointOh } from "./src/mod.ts";
+      const n = new NumericPointOh(document.querySelector("#numeric"));
+      const c = new CurrencyPointOh(document.querySelector("#currency"));
+      const p = new PercentagePointOh(document.querySelector("#percentage"));
+      const master = document.querySelector("#master");
+      document.querySelector("#sync").addEventListener("click", () => {
+        let value = Number.parseFloat(master.value);
+        value = Number.isFinite(value) ? value : 0;
+        [n, c, p].forEach((po) => po.setValue(value));
+      });
+
+      import ReactDOM from "react-dom";
+      import React from "react";
+      import Playground from "./playground/react.tsx";
+      ReactDOM.render(React.createElement(Playground), document.querySelector("#react"));
+    </script>
+  </body>
+</html>
