@@ -9,12 +9,11 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "outDir": "build/types",
+    "outDir": "build",
     "importsNotUsedAsValues": "error"
   },
-  "include": ["./src/mod.ts", "./vite-env.d.ts"]
+  "include": ["./src/**/*", "./vite-env.d.ts"]
 }

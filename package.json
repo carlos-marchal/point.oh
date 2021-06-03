@@ -1,10 +1,10 @@
 {
   "name": "point.oh",
   "version": "0.1.0",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc",
-    "serve": "vite preview",
+    "build": "tsc",
     "test": "web-test-runner \"**/*_test.ts\" --node-resolve"
   },
   "devDependencies": {
@@ -13,6 +13,7 @@
     "@types/react": "^16.8.0",
     "@web/dev-server-esbuild": "^0.2.12",
     "@web/test-runner": "^0.13.5",
+    "esbuild": "^0.12.5",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "typescript": "^4.2.3",
@@ -20,8 +21,13 @@
   },
   "type": "module",
   "exports": {
-    "import": "./build/point.oh.es.js",
-    "require": "./build/point.oh.umd.js"
+    ".": "./build/core.js",
+    "./numeric": "./build/numeric.js",
+    "./currency": "./build/core.js",
+    "./percentage": "./build/percentage.js",
+    "./react/numeric": "./build/react/numeric.js",
+    "./react/currency": "./build/react/core.js",
+    "./react/percentage": "./build/react/percentage.js"
   },
   "keywords": [
     "input",
@@ -29,5 +35,9 @@
     "point.oh",
     "format"
   ],
-  "types": "./build/types/mod.d.ts"
+  "types": "./build/core.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/carlos-marchal/point.oh"
+  }
 }

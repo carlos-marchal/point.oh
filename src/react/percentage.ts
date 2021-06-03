@@ -1,6 +1,9 @@
 import React, { useLayoutEffect, useRef } from "react";
-import { InputState } from "../core";
-import { PercentagePointOh as PercentagePointOhClass, PercentagePointOhOptions } from "../percentage";
+import type { InputState } from "../core";
+import {
+  PercentagePointOh as PercentagePointOhClass,
+  PercentagePointOhOptions,
+} from "../percentage";
 
 export interface PercentagePointOhProps {
   options?: PercentagePointOhOptions;
@@ -9,22 +12,23 @@ export interface PercentagePointOhProps {
 }
 
 export default function PercentagePointOh({ options, onChange, value }: PercentagePointOhProps) {
-  const input = useRef<HTMLInputElement | null>();
+  const inputRef = useRef<HTMLInputElement | null>();
   const pointOh = useRef<PercentagePointOhClass>();
   useLayoutEffect(() => {
-    pointOh.current = new PercentagePointOhClass(input.current, options);
+    const input = inputRef.current!;
+    pointOh.current = new PercentagePointOhClass(input, options);
     function listener(event: Event): void {
       const customEvent = event as CustomEvent<InputState<number>>;
-      onChange(customEvent.detail.value);
+      onChange?.(customEvent.detail.value);
     }
-    input.current.addEventListener("point.oh/update", listener);
+    input.addEventListener("point.oh/update", listener);
     return () => {
-      input.current.removeEventListener("point.oh/update", listener);
-      pointOh.current.unregister();
+      input.removeEventListener("point.oh/update", listener);
+      pointOh.current!.unregister();
     };
   }, [options, onChange]);
   useLayoutEffect(() => {
-    pointOh.current.setValue(value);
+    pointOh.current!.setValue(value ?? 0);
   }, [value]);
-  return React.createElement("input", { ref: input });
+  return React.createElement("input", { ref: inputRef });
 }

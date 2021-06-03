@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef } from "react";
-import { InputState } from "../core";
+import type { InputState } from "../core";
 import { NumericPointOh as NumericPointOhClass, NumericPointOhOptions } from "../numeric";
 
 export interface NumericPointOhProps {
@@ -9,22 +9,23 @@ export interface NumericPointOhProps {
 }
 
 export default function NumericPointOh({ options, onChange, value }: NumericPointOhProps) {
-  const input = useRef<HTMLInputElement | null>();
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const pointOh = useRef<NumericPointOhClass>();
   useLayoutEffect(() => {
-    pointOh.current = new NumericPointOhClass(input.current, options);
+    const input = inputRef.current!;
+    pointOh.current = new NumericPointOhClass(input, options);
     function listener(event: Event): void {
       const customEvent = event as CustomEvent<InputState<number>>;
-      onChange(customEvent.detail.value);
+      onChange?.(customEvent.detail.value);
     }
-    input.current.addEventListener("point.oh/update", listener);
+    input.addEventListener("point.oh/update", listener);
     return () => {
-      input.current.removeEventListener("point.oh/update", listener);
-      pointOh.current.unregister();
+      input.removeEventListener("point.oh/update", listener);
+      pointOh.current!.unregister();
     };
   }, [options, onChange]);
   useLayoutEffect(() => {
-    pointOh.current.setValue(value);
+    pointOh.current!.setValue(value ?? 0);
   }, [value]);
-  return React.createElement("input", { ref: input });
+  return React.createElement("input", { ref: inputRef });
 }
