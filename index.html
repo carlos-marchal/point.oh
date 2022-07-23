@@ -29,7 +29,9 @@
     </div>
     <div id="react" />
     <script type="module">
-      import { NumericPointOh, CurrencyPointOh, PercentagePointOh } from "./src/mod.ts";
+      import { NumericPointOh } from "./src/numeric.ts";
+      import { CurrencyPointOh } from "./src/currency.ts";
+      import { PercentagePointOh } from "./src/percentage.ts";
       const n = new NumericPointOh(document.querySelector("#numeric"));
       const c = new CurrencyPointOh(document.querySelector("#currency"));
       const p = new PercentagePointOh(document.querySelector("#percentage"));
