@@ -37,7 +37,7 @@ export class PercentagePointOh extends PointOh<number> {
       thousandSeparator = ".",
       shownDecimalSeparator = ",",
       acceptedDecimalSeparators = [",", "."],
-      maxValue = 1000,
+      maxValue = Number.POSITIVE_INFINITY,
     } = options;
     function stateFor(value: number): InputState<number> {
       value = Math.min(value, maxValue / 100);
