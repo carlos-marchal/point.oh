@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
+    "build-playground": "vite build",
     "build": "tsc",
     "prepublish": "tsc",
     "test": "web-test-runner \"**/*_test.ts\" --node-resolve"
